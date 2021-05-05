@@ -26,14 +26,36 @@ function randomNumber (min, max) {
 
 
 var tentativi = [];
-var maxTentativi = 100 - 16;
+
+
+var difficoltà = parseInt(prompt('Selezionara la difficoltà tra: 0 - 1 - 2'));
+
+while (isNaN(difficoltà) || difficoltà < 0 || difficoltà > 2) {
+    difficoltà = parseInt(prompt('Difficoltà sconosciuta\nSelezionara la difficoltà tra: 0 - 1 - 2'));
+}
+
+switch (difficoltà) {
+    case 0:
+        numeriGenerati = 100;
+        break;
+    case 1:
+        numeriGenerati = 80;
+        break;
+    case 2:
+        numeriGenerati = 50;
+        break;
+    default:
+        alert('difficoltà sconosciuta');        
+}
+
+var maxTentativi = numeriGenerati - 16;
 
 // ---------------------------------------------------------CREAZIONE BOMBE------------------------------------------------------------------------------
 
 var bombe =[];
 
 while (bombe.length < 16) {
-    var numeroBomba = randomNumber(1,100);
+    var numeroBomba = randomNumber(1,numeriGenerati);
 
     if (!isInArray(numeroBomba, bombe)) {
         bombe.push(numeroBomba);
@@ -47,10 +69,10 @@ var gameOver = false;
 
 while (tentativi.length < maxTentativi && gameOver == false) {
     
-    var numeroUtente = parseInt(prompt('inserisci un numero compreso tra 1 e 100'));
+    var numeroUtente = parseInt(prompt('inserisci un numero compreso tra 1 e ' + numeriGenerati));
 
-    while (isNaN(numeroUtente) || numeroUtente < 1 || numeroUtente > 100) {
-        var numeroUtente = parseInt(prompt('Ho detto un numero compreso tra 1 e 100 !'));
+    while (isNaN(numeroUtente) || numeroUtente < 1 || numeroUtente > numeriGenerati) {
+        var numeroUtente = parseInt(prompt('Ho detto un numero compreso tra 1 e ' + numeriGenerati + ' !'));
     }
     console.log(numeroUtente);
 
